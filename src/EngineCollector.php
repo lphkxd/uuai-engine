@@ -16,7 +16,13 @@ class EngineCollector extends MetadataCollector
      */
     public static function addEngine($api, $class, UUAIEngineRegister $register)
     {
-        static::$container[$register->getGroup() . $api] = [
+        $key = $register->getGroup() . $api;
+
+        if (isset(static::$container[$key])) {
+            throw new EngineException("引擎{$key}已经注册，请检查是否重复注册！");
+        }
+
+        static::$container[$key] = [
             'class' => $class,
             'name' => $register->getName(),
             'desc' => $register->getDesc(),
