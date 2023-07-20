@@ -4,6 +4,7 @@ namespace UUAI\Engine;
 
 
 use Hyperf\Di\MetadataCollector;
+use UUAI\Engine\Annotation\UUAIEngineRegister;
 use UUPT\Contract\Exception\EngineException;
 
 class EngineCollector extends MetadataCollector
@@ -13,9 +14,14 @@ class EngineCollector extends MetadataCollector
     /**
      * Constructs a route collector.
      */
-    public static function addEngine($api, $class, $group)
+    public static function addEngine($api, $class, UUAIEngineRegister $register)
     {
-        static::$container[$group . $api] = $class;
+        static::$container[$register->getGroup() . $api] = [
+            'class' => $class,
+            'name' => $register->getName(),
+            'desc' => $register->getDesc(),
+            'group' => $register->getGroup(),
+        ];
     }
 
     /**
@@ -27,8 +33,8 @@ class EngineCollector extends MetadataCollector
         return $this->list();
     }
 
-    public static function getEngine($api = '')
+    public static function getEngineClass($api = '')
     {
-        return static::$container[$api] ?? throw new EngineException("引擎不存在！");
+        return static::$container[$api]['class'] ?? throw new EngineException("引擎不存在！");
     }
 }
