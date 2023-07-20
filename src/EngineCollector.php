@@ -16,12 +16,10 @@ class EngineCollector extends MetadataCollector
      */
     public static function addEngine($api, $class, UUAIEngineRegister $register)
     {
-        $key = $register->getGroup() . $api;
-
+        $key = strtolower($register->getGroup() . $api);
         if (isset(static::$container[$key])) {
             throw new EngineException("引擎{$key}已经注册，请检查是否重复注册！");
         }
-
         static::$container[$key] = [
             'class' => $class,
             'name' => $register->getName(),
@@ -41,6 +39,6 @@ class EngineCollector extends MetadataCollector
 
     public static function getEngineClass($api = '')
     {
-        return static::$container[$api]['class'] ?? throw new EngineException("引擎不存在！");
+        return static::$container[strtolower($api)]['class'] ?? throw new EngineException("引擎不存在！");
     }
 }
