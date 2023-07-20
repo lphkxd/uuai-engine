@@ -1,0 +1,74 @@
+{
+  "name": "uupt/ai-engine",
+  "type": "project",
+  "keywords": [
+    "php",
+    "swoole",
+    "framework",
+    "hyperf",
+    "microservice",
+    "middleware"
+  ],
+  "description": "UUAI engine 服务注册包",
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">=8.0",
+    "uupt/contract": "^1.0|^2.0|^3.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "hyperf-plus/helper": "^3.0",
+    "phpstan/phpstan": "^0.12",
+    "swoole/ide-helper": "^4.5"
+  },
+  "suggest": {
+    "hyperf/di": "Required to use HTTPS.",
+    "ext-openssl": "Required to use HTTPS.",
+    "ext-json": "Required to use JSON.",
+    "ext-pdo": "Required to use MySQL Client.",
+    "ext-pdo_mysql": "Required to use MySQL Client.",
+    "ext-redis": "Required to use Redis Client."
+  },
+  "autoload": {
+    "psr-4": {
+      "UUAI\\Engine\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "extra": {
+    "hyperf": {
+      "config": [
+        "UUAI\\Engine\\ConfigProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-autoload-dump": [
+      "rm -rf runtime/container"
+    ],
+    "test": "co-phpunit --prepend test/bootstrap.php -c phpunit.xml --colors=always",
+    "cs-fix": "php-cs-fixer fix $1",
+    "analyse": "phpstan analyse --memory-limit 300M -l 0 -c phpstan.neon ./app ./config",
+    "start": [
+      "Composer\\Config::disableProcessTimeout",
+      "php ./bin/hyperf.php start"
+    ]
+  },
+  "repositories": {
+    "proxy": {
+      "type": "composer",
+      "url": "https://hyperf-cloud-composer.pkg.coding.net/limingxinleo/proxy",
+      "only": [
+        "hyperf/*"
+      ]
+    }
+  }
+}
