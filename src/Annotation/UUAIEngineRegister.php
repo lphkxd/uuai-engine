@@ -12,7 +12,7 @@ use UUAI\Engine\EngineCollector;
  * @Target({"CLASS"})
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-class UUAIEngineAnnotation implements AnnotationInterface
+class UUAIEngineRegister implements AnnotationInterface
 {
     /**
      * @param string $name  引擎名字
