@@ -3,6 +3,7 @@
 namespace UUAI\Engine;
 
 
+use Hyperf\Collection\Collection;
 use Hyperf\Di\MetadataCollector;
 use UUAI\Engine\Annotation\UUAIEngineRegister;
 use UUPT\Contract\Exception\EngineException;
@@ -23,18 +24,38 @@ class EngineCollector extends MetadataCollector
         static::$container[$key] = [
             'class' => $class,
             'name' => $register->getName(),
+            'api' => $api,
             'desc' => $register->getDesc(),
             'group' => $register->getGroup(),
         ];
     }
 
     /**
-     * Returns the collected route data, as provided by the data generator.
+     * 获取所有数据
      * @return array
      */
-    public function getData()
+    public static function getData()
     {
-        return $this->list();
+        return static::$container;
+    }
+
+    /**
+     * 获取所有引擎列表
+     * @return array
+     */
+    public static function getEngines()
+    {
+        $list = [];
+        foreach (static::$container as $item){
+            $list[$item['class']] ??= [
+                'name'=>$item['name'],
+                'class'=>$item['class'],
+                'group'=>$item['group'],
+                'desc'=>$item['desc'],
+            ];
+            $list[$item['class']]['apis'][] = $item['api'];
+        }
+        return array_values($list);
     }
 
     public static function getEngineClass($api = '')
