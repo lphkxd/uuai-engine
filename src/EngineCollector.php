@@ -58,6 +58,15 @@ class EngineCollector extends MetadataCollector
         return array_values($list);
     }
 
+    public static function getEngine($engine)
+    {
+        $class = self::getEngineClass($engine);
+        if (!class_exists($class)) {
+            throw new BusinessException(ErrorCode::ERROR_INTERNAL_UNSUPPORTED_ENGINE, '暂不支持该引擎-' . ucwords($engine));
+        }
+        return \Hyperf\Support\make($class);
+    }
+
     public static function getEngineClass($api = '')
     {
         return static::$container[strtolower($api)]['class'] ?? throw new EngineException("引擎不存在！");
