@@ -20,7 +20,7 @@ class UUAIEngineApiRegister implements AnnotationInterface
      * @param array $apis 支持API
      * @param string $desc 引擎介绍
      * @param string $group 分组
-     * @param int $engine_id
+     * @param int $engine_name
      */
     public function __construct(
         private string $name = '',

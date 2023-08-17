@@ -27,7 +27,7 @@ class EngineCollector extends MetadataCollector
             'api' => $api,
             'desc' => $register->getDesc(),
             'group' => $register->getGroup(),
-            'engine_id' => $register->getEngineId(),
+            'engine_name' => $register->getEngineName(),
         ];
     }
 
