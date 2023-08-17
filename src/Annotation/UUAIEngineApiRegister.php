@@ -28,7 +28,7 @@ class UUAIEngineApiRegister implements AnnotationInterface
         private array  $apis = [],
         private string $desc = '',
         private string $group = '',
-        private int $engine_id = 0,
+        private string $engine_name = "",
     )
     {
     }
@@ -135,19 +135,21 @@ class UUAIEngineApiRegister implements AnnotationInterface
     }
 
     /**
-     * @return int
+     * @return int|string
      */
-    public function getEngineId(): int
+    public function getEngineName(): int|string
     {
-        return $this->engine_id;
+        return $this->engine_name;
     }
 
     /**
-     * @param int $engine_id
+     * @param int|string $engine_name
      */
-    public function setEngineId(int $engine_id): void
+    public function setEngineName(int|string $engine_name): void
     {
-        $this->engine_id = $engine_id;
+        $this->engine_name = $engine_name;
     }
+
+
 
 }

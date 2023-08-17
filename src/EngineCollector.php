@@ -53,7 +53,7 @@ class EngineCollector extends MetadataCollector
                 'class'=>$item['class'],
                 'group'=>$item['group'],
                 'desc'=>$item['desc'],
-                'engine_id' => $item['engine_id'],
+                'engine_name' => $item['engine_name'],
             ];
             $list[$item['class']]['apis'][] = $item['api'];
         }
