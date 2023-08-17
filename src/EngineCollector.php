@@ -5,7 +5,7 @@ namespace UUAI\Engine;
 
 use Hyperf\Collection\Collection;
 use Hyperf\Di\MetadataCollector;
-use UUAI\Engine\Annotation\UUAIEngineRegister;
+use UUAI\Engine\Annotation\UUAIEngineApiRegister;
 use UUPT\Contract\Exception\EngineException;
 
 class EngineCollector extends MetadataCollector
@@ -15,7 +15,7 @@ class EngineCollector extends MetadataCollector
     /**
      * Constructs a route collector.
      */
-    public static function addEngine($api, $class, UUAIEngineRegister $register)
+    public static function addEngine($api, $class, UUAIEngineApiRegister $register)
     {
         $key = strtolower($register->getGroup() . $api);
         if (isset(static::$container[$key])) {
@@ -27,6 +27,7 @@ class EngineCollector extends MetadataCollector
             'api' => $api,
             'desc' => $register->getDesc(),
             'group' => $register->getGroup(),
+            'engine_id' => $register->getEngineId(),
         ];
     }
 
@@ -52,6 +53,7 @@ class EngineCollector extends MetadataCollector
                 'class'=>$item['class'],
                 'group'=>$item['group'],
                 'desc'=>$item['desc'],
+                'engine_id' => $item['engine_id'],
             ];
             $list[$item['class']]['apis'][] = $item['api'];
         }

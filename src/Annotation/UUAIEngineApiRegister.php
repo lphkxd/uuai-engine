@@ -12,14 +12,15 @@ use UUAI\Engine\EngineCollector;
  * @Target({"CLASS"})
  */
 #[Attribute(Attribute::TARGET_CLASS)]
-class UUAIEngineRegister implements AnnotationInterface
+class UUAIEngineApiRegister implements AnnotationInterface
 {
     /**
-     * @param string $name  引擎名字
-     * @param array  $api   单个API
-     * @param array  $apis  支持API
-     * @param string $desc  引擎介绍
+     * @param string $name 引擎名字
+     * @param string $api 单个API
+     * @param array $apis 支持API
+     * @param string $desc 引擎介绍
      * @param string $group 分组
+     * @param int $engine_id
      */
     public function __construct(
         private string $name = '',
@@ -27,6 +28,7 @@ class UUAIEngineRegister implements AnnotationInterface
         private array  $apis = [],
         private string $desc = '',
         private string $group = '',
+        private int $engine_id = 0,
     )
     {
     }
@@ -131,4 +133,21 @@ class UUAIEngineRegister implements AnnotationInterface
     public function collectProperty(string $className, ?string $target): void
     {
     }
+
+    /**
+     * @return int
+     */
+    public function getEngineId(): int
+    {
+        return $this->engine_id;
+    }
+
+    /**
+     * @param int $engine_id
+     */
+    public function setEngineId(int $engine_id): void
+    {
+        $this->engine_id = $engine_id;
+    }
+
 }
