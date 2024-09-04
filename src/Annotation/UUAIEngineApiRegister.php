@@ -150,6 +150,9 @@ class UUAIEngineApiRegister implements AnnotationInterface
         $this->engine_name = $engine_name;
     }
 
+    public function collectClassConstant(string $className, ?string $target): void
+    {
 
+    }
 
 }
